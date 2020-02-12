@@ -16,7 +16,8 @@ services:
 install:
   - '[[ -z "$CI_USER_TOKEN" ]] || composer config github-oauth.github.com ${CI_USER_TOKEN};'
   - travis_retry composer self-update && composer --version
-  - composer require symfony/event-dispatcher:v3.4
+  - composer require symfony/event-dispatcher:v3.1
+  - composer require symfony/browser-kit:v3.1
   - composer update --prefer-dist --no-interaction
   - git clone -q --depth=1 -b codeception-2.2 https://github.com/codeception/codeception-lumen-sample.git framework-tests
   - git --git-dir framework-tests/.git log -n 1
