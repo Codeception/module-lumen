@@ -27,7 +27,7 @@ jobs:
 
     - name: Install Lumen Sample
       run: |
-        git clone https://github.com/codeception/codeception-lumen-sample.git framework-tests
+        git clone -b codeception-2.2 https://github.com/codeception/codeception-lumen-sample.git framework-tests
         cd framework-tests
         cp .env.testing .env
         composer install
