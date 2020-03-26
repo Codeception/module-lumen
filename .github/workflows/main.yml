@@ -30,6 +30,9 @@ jobs:
         git clone -q --depth=1 -b codeception-2.2 https://github.com/codeception/codeception-lumen-sample.git framework-tests
         git --git-dir framework-tests/.git log -n 1
         composer update -d framework-tests --no-dev --prefer-dist --no-interaction
+        pwd
+        cd framework-tests
+        php ./vendor/bin/codecept build
         php ./vendor/bin/codecept build -c framework-tests
         cp framework-tests/.env.testing framework-tests/.env
         touch framework-tests/storage/testing.sqlite
