@@ -4,9 +4,6 @@ on: [push, pull_request]
 
 jobs:
   tests:
-    strategy:
-      fail-fast: false
-
     runs-on: ubuntu-latest
     
     services:
@@ -14,6 +11,7 @@ jobs:
         image: mysql
 
     strategy:
+      fail-fast: false
       matrix:
         php: [5.6, 7.0, 7.1, 7.2, 7.3, 7.4]
 
