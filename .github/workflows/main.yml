@@ -35,6 +35,9 @@ jobs:
         cd framework-tests
         pwd
         ls
+        cd vendor
+        pwd
+        ls
         php ./vendor/bin/codecept build
         pwd
         ls
