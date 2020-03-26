@@ -28,14 +28,12 @@ jobs:
     - name: Install Lumen Sample
       run: |
         git clone -b codeception-2.2 https://github.com/codeception/codeception-lumen-sample.git framework-tests
-        cd framework-tests
-        cp .env.testing .env
-        composer install
-        php ./vendor/bin/codecept build
-        touch storage/testing.sqlite
-        pwd
-        ls
-        php artisan migrate --database=testing
+        git --git-dir framework-tests/.git log -n 1
+        composer update -d framework-tests --no-dev --prefer-dist --no-interaction
+        php ./vendor/bin/codecept build -c framework-tests
+        cp framework-tests/.env.testing framework-tests/.env
+        touch framework-tests/storage/testing.sqlite
+        php framework-tests/artisan migrate --database=testing --force
 
     - name: Validate composer.json and composer.lock
       run: composer validate
