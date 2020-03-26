@@ -32,7 +32,9 @@ jobs:
         cp .env.testing .env
         composer install
         touch storage/testing.sqlite
-        artisan migrate --database=testing
+        pwd
+        ls
+        php artisan migrate --database=testing
 
     - name: Validate composer.json and composer.lock
       run: composer validate
