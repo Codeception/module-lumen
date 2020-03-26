@@ -31,6 +31,7 @@ jobs:
         cd framework-tests
         cp .env.testing .env
         composer install
+        php ./vendor/bin/codecept build
         touch storage/testing.sqlite
         pwd
         ls
