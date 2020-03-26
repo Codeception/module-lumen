@@ -31,7 +31,7 @@ jobs:
         cd framework-tests
         cp .env.testing .env
         composer install
-        touch framework-tests/storage/testing.sqlite
+        touch storage/testing.sqlite
         artisan migrate --database=testing
 
     - name: Validate composer.json and composer.lock
