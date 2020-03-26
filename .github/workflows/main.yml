@@ -31,9 +31,16 @@ jobs:
         git --git-dir framework-tests/.git log -n 1
         composer update -d framework-tests --no-dev --prefer-dist --no-interaction
         pwd
+        ls
         cd framework-tests
+        pwd
+        ls
         php ./vendor/bin/codecept build
+        pwd
+        ls
         php ./vendor/bin/codecept build -c framework-tests
+        pwd
+        ls
         cp framework-tests/.env.testing framework-tests/.env
         touch framework-tests/storage/testing.sqlite
         php framework-tests/artisan migrate --database=testing --force
