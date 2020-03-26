@@ -38,6 +38,9 @@ jobs:
         cd vendor
         pwd
         ls
+        cd bin
+        pwd
+        ls
         php ./vendor/bin/codecept build
         pwd
         ls
