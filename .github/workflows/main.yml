@@ -30,7 +30,7 @@ jobs:
 
     - name: Install Lumen Sample
       run: |
-        composer update -d framework-tests --no-dev --prefer-dist --no-interaction
+        composer update --no-dev --prefer-dist --no-interaction
         cp .env.testing .env
         touch storage/testing.sqlite
         php artisan migrate --database=testing --force
