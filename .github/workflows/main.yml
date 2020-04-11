@@ -23,7 +23,7 @@ jobs:
       uses: shivammathur/setup-php@v2
       with:
         php-version: ${{ matrix.php }}
-        extensions: mbstring, php-xml, ext-dom, zip, pdo, sqlite
+        extensions: zip, pdo, sqlite
         coverage: none
 
     - name: Checkout Lumen Sample
