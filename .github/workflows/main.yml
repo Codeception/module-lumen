@@ -26,10 +26,15 @@ jobs:
         extensions: mbstring, php-xml, ext-dom, zip, pdo, sqlite
         coverage: none
 
+    - name: Checkout Lumen Sample
+      uses: actions/checkout@v2
+      with:
+        repository: codeception/codeception-lumen-sample
+        path: framework-tests
+        ref: codeception-2.2
+
     - name: Install Lumen Sample
       run: |
-        git clone -b codeception-2.2 https://github.com/codeception/codeception-lumen-sample.git framework-tests
-        git --git-dir framework-tests/.git log -n 1
         composer update -d framework-tests --no-dev --prefer-dist --no-interaction
         cp framework-tests/.env.testing framework-tests/.env
         touch framework-tests/storage/testing.sqlite
