@@ -30,10 +30,11 @@ jobs:
 
     - name: Install Lumen Sample
       run: |
-        composer update -d framework-tests --no-dev --prefer-dist --no-interaction
-        cp framework-tests/.env.testing framework-tests/.env
-        touch framework-tests/storage/testing.sqlite
-        php framework-tests/artisan migrate --database=testing --force
+        composer install --prefer-dist --no-progress --no-interaction --no-suggest
+        cp .env.testing .env
+        touch storage/testing.sqlite
+        php artisan migrate --database=testing --force
+      working-directory: framework-tests
 
     - name: Validate composer.json and composer.lock
       run: composer validate
