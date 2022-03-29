@@ -8,8 +8,8 @@ jobs:
 
     strategy:
       matrix:
-        php: [7.4, 8.0]
-        lumen: [6, 8]
+        php: [8.0, 8.1]
+        lumen: [8]
 
     steps:
     - name: Checkout code
@@ -23,21 +23,13 @@ jobs:
         extensions: ctype, iconv, intl, json, mbstring, pdo, pdo_sqlite
         coverage: none
 
-    - name: Checkout Lumen 6 Sample
-      if: matrix.lumen == 6
-      uses: actions/checkout@v2
-      with:
-        repository: codeception/lumen-module-tests
-        path: framework-tests
-        ref: 6.x
-
     - name: Checkout Lumen 8 Sample
       if: matrix.lumen == 8
       uses: actions/checkout@v2
       with:
         repository: codeception/lumen-module-tests
         path: framework-tests
-        ref: main
+        ref: codeception5
 
     - name: Get composer cache directory
       id: composer-cache
@@ -49,10 +41,6 @@ jobs:
         path: ${{ steps.composer-cache.outputs.dir }}
         key: ${{ runner.os }}-${{ matrix.php }}-composer-${{ hashFiles('composer.json') }}
         restore-keys: ${{ runner.os }}-${{ matrix.php }}-composer-
-
-    - name: Install dotenv 3 for Lumen 6
-      if: matrix.lumen == 6
-      run: composer require vlucas/phpdotenv ^3.6 --ignore-platform-req=php
 
     - name: Install dependencies
       run: composer install --prefer-dist --no-progress --ignore-platform-req=php
