@@ -119,7 +119,7 @@ class Lumen extends HttpKernelBrowser
         $this->app->make('request');
 
         $request = $request ?: SymfonyRequest::create($this->module->config['url']);
-        $this->app->instance(\Illuminate\Http\Request::class, Request::createFromBase($request));
+        $this->app->instance(Request::class, Request::createFromBase($request));
 
         // Reset the old database if there is one
         if ($this->oldDb) {
@@ -138,7 +138,7 @@ class Lumen extends HttpKernelBrowser
     {
         $files = parent::filterFiles($files);
 
-        if (!class_exists(\Illuminate\Http\UploadedFile::class)) {
+        if (!class_exists(UploadedFile::class)) {
             // The UploadedFile class was introduced in Laravel 5.2.15,
             // so don't change the $files array if it does not exist.
             return $files;

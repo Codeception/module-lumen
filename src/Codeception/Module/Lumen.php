@@ -69,9 +69,9 @@ class Lumen extends Framework implements ActiveRecord, PartedModule
     public Application $app;
 
     /**
-     * @var array
+     * @var array<string, mixed>
      */
-    public $config = [];
+    public array $config = [];
 
     public function __construct(ModuleContainer $container, ?array $config = null)
     {
@@ -105,7 +105,7 @@ class Lumen extends Framework implements ActiveRecord, PartedModule
      *
      * @throws ModuleConfigException
      */
-    public function _initialize()
+    public function _initialize(): void
     {
         $this->checkBootstrapFileExists();
         $this->registerAutoloaders();
@@ -117,7 +117,7 @@ class Lumen extends Framework implements ActiveRecord, PartedModule
      * @param TestInterface $test
      * @throws Throwable
      */
-    public function _before(TestInterface $test)
+    public function _before(TestInterface $test): void
     {
         $this->client = new LumenConnector($this);
 
@@ -134,7 +134,7 @@ class Lumen extends Framework implements ActiveRecord, PartedModule
      * @param TestInterface $test
      * @throws Throwable
      */
-    public function _after(TestInterface $test)
+    public function _after(TestInterface $test): void
     {
         /** @var DatabaseManager $dbManager */
         if (!$dbManager = $this->app['db']) {
@@ -154,7 +154,7 @@ class Lumen extends Framework implements ActiveRecord, PartedModule
      *
      * @throws ModuleConfigException
      */
-    protected function checkBootstrapFileExists()
+    protected function checkBootstrapFileExists(): void
     {
         $bootstrapFile = $this->config['bootstrap_file'];
 
@@ -170,7 +170,7 @@ class Lumen extends Framework implements ActiveRecord, PartedModule
     /**
      * Register autoloaders.
      */
-    protected function registerAutoloaders()
+    protected function registerAutoloaders(): void
     {
         require $this->config['project_dir'] . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
     }
@@ -183,7 +183,7 @@ class Lumen extends Framework implements ActiveRecord, PartedModule
         return $this->app;
     }
 
-    public function setApplication(Application $app)
+    public function setApplication(Application $app): void
     {
         $this->app = $app;
     }
@@ -196,7 +196,7 @@ class Lumen extends Framework implements ActiveRecord, PartedModule
      * $I->amOnRoute('homepage');
      * ```
      */
-    public function amOnRoute(string $routeName, array $params = [])
+    public function amOnRoute(string $routeName, array $params = []): void
     {
         $route = $this->getRouteByName($routeName);
 
@@ -293,10 +293,8 @@ class Lumen extends Framework implements ActiveRecord, PartedModule
      *
      * // Will return an instance of FooBar, also works for singletons.
      * ```
-     *
-     * @return mixed
      */
-    public function grabService(string $class)
+    public function grabService(string $class): mixed
     {
         return $this->app[$class];
     }
@@ -312,8 +310,6 @@ class Lumen extends Framework implements ActiveRecord, PartedModule
      * $user = $I->haveRecord('App\Models\User', ['name' => 'Davert']); // returns Eloquent model
      * ```
      *
-     * @param string $table
-     * @param array $attributes
      * @return integer|EloquentModel
      * @part orm
      */
@@ -351,11 +347,9 @@ class Lumen extends Framework implements ActiveRecord, PartedModule
      * ?>
      * ```
      *
-     * @param string $table
-     * @param array $attributes
      * @part orm
      */
-    public function seeRecord($table, $attributes = [])
+    public function seeRecord(string $table, array $attributes = []): void
     {
         if (class_exists($table)) {
             if (!$this->findModel($table, $attributes)) {
@@ -376,11 +370,9 @@ class Lumen extends Framework implements ActiveRecord, PartedModule
      * $I->dontSeeRecord('App\Models\User', ['name' => 'davert']);
      * ```
      *
-     * @param string $table
-     * @param array $attributes
      * @part orm
      */
-    public function dontSeeRecord($table, $attributes = []): void
+    public function dontSeeRecord(string $table, array $attributes = []): void
     {
         if (class_exists($table)) {
             if ($this->findModel($table, $attributes)) {
@@ -402,12 +394,10 @@ class Lumen extends Framework implements ActiveRecord, PartedModule
      * $record = $I->grabRecord('App\Models\User', ['name' => 'davert']); // returns Eloquent model
      * ```
      *
-     * @param string $table
-     * @param array $attributes
      * @return array|EloquentModel
      * @part orm
      */
-    public function grabRecord($table, $attributes = [])
+    public function grabRecord(string $table, array $attributes = [])
     {
         if (class_exists($table)) {
             if (!$model = $this->findModel($table, $attributes)) {
@@ -463,10 +453,9 @@ class Lumen extends Framework implements ActiveRecord, PartedModule
      * ```
      *
      * @see https://lumen.laravel.com/docs/master/testing#model-factories
-     * @return mixed
      * @part orm
      */
-    public function have(string $model, array $attributes = [], string $name = 'default')
+    public function have(string $model, array $attributes = [], string $name = 'default'): mixed
     {
         try {
             return $this->modelFactory($model, $name)->create($attributes);
@@ -486,10 +475,9 @@ class Lumen extends Framework implements ActiveRecord, PartedModule
      * ```
      *
      * @see https://lumen.laravel.com/docs/master/testing#model-factories
-     * @return mixed
      * @part orm
      */
-    public function haveMultiple(string $model, int $times, array $attributes = [], string $name = 'default')
+    public function haveMultiple(string $model, int $times, array $attributes = [], string $name = 'default'): mixed
     {
         try {
             return $this->modelFactory($model, $name, $times)->create($attributes);
@@ -510,10 +498,9 @@ class Lumen extends Framework implements ActiveRecord, PartedModule
      * ```
      *
      * @see https://lumen.laravel.com/docs/master/testing#model-factories
-     * @return mixed
      * @part orm
      */
-    public function make(string $model, array $attributes = [], string $name = 'default')
+    public function make(string $model, array $attributes = [], string $name = 'default'): mixed
     {
         try {
             return $this->modelFactory($model, $name)->make($attributes);
@@ -533,10 +520,9 @@ class Lumen extends Framework implements ActiveRecord, PartedModule
      * ```
      *
      * @see https://lumen.laravel.com/docs/master/testing#model-factories
-     * @return mixed
      * @part orm
      */
-    public function makeMultiple(string $model, int $times, array $attributes = [], string $name = 'default')
+    public function makeMultiple(string $model, int $times, array $attributes = [], string $name = 'default'): mixed
     {
         try {
             return $this->modelFactory($model, $name, $times)->make($attributes);
@@ -566,6 +552,7 @@ class Lumen extends Framework implements ActiveRecord, PartedModule
      * Returns a list of recognized domain names.
      * The elements of this list are regular expressions.
      *
+     * @return string[]
      * @throws ReflectionException
      */
     protected function getInternalDomains(): array
