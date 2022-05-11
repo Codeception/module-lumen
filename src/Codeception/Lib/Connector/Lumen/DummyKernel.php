@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Codeception\Lib\Connector\Lumen;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 
 /**
@@ -12,7 +13,7 @@ use Symfony\Component\HttpKernel\HttpKernelInterface;
  */
 class DummyKernel implements HttpKernelInterface
 {
-    public function handle(Request $request, $type = self::MASTER_REQUEST, $catch = true): void
+    public function handle(Request $request,int $type = self::MASTER_REQUEST,bool $catch = true): Response
     {
         //
     }
